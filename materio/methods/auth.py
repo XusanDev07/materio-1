@@ -145,8 +145,9 @@ def user_update(request, params):
     if request.user.check_password(params['new_password']):
         return custom_response(True, message={"Error": "Parol eskisi bilan teng bo'lishi kerek emas"})
 
-    if len(str(params['new_password'])) < 8 or params['new_password'].isalnum() or ' ' in params['new_password']:
-        return custom_response(True, message=MESSAGE['ParamsNotFull'])
+    if len(str(params['new_password'])) < 8 or " " in params['new_password']:
+        return custom_response(False, message="Parol 8tadan kichkina va bo'shliq bolishi kerak emas")
+
     request.user.set_password(params['new_password'])
     request.user.save()
 
