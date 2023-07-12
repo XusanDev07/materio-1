@@ -6,6 +6,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=50)
     oxirgi_product = models.DateTimeField(auto_now=True)
     xabar_berish = models.DateTimeField(auto_now=True)
+
     # holati_color = models.BooleanField(default=False)
 
     def clent_format(self):
