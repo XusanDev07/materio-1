@@ -8,32 +8,31 @@ from materio.models.auth import OTP
 
 
 def regis(requests, params):
-    nott = 'phone' if 'phone' not in params else 'password' if 'password' not in params else 'token' if 'token' not in params else 'username' if 'username' not in params else ''
+    nott = 'token' if 'token' not in params else 'password' if 'password' not in params else ''
+
     if nott:
-        return custom_response(False, message=error_params_unfilled(nott))
+        return custom_response(False, message=f"{nott} paramsda bo'lishi kere")
 
-    otp = OTP.objects.filter(key=params['token']).first()
+    token = check_token_in_db(params['token'])
 
-    if not otp:
-        return custom_response(False, {"Error": "Неверный токен !"})
+    if not token:
+        return custom_response(False, message="Token xato")
 
-    if otp.is_conf:
-        return custom_response(False, {"Error": "Устаревший токен !"})
+    if token['is_expire']:
+        return custom_response(False, message="Token yaroqsiz!")
 
-    user = User.objects.filter(phone=otp.email).first()
+    if not token['is_conf']:
+        return custom_response(False, message="Token tastiqlanmagan")
 
-    if user:
-        return custom_response(False, {"Error": "Этот эмайл ранее был зарегистрирован"})
-
-    if len(params['password']) < 8 or params['password'].isalnum() or " " in params['password']:
-        return custom_response(False, {
-            "Error": "Длина пароля должно быть не меннее 8 символов и больше 2х занков без пробелов !"})
+    if len(str(params['password'])) < 8 or " " in params['password']:
+        return custom_response(False, message="Parol 8tadan kichkina bolishi kerak emas")
 
     user_data = {
-        "password": params['password'],
-        "username": params['username'],
-        "phone": params.get('phone', ''),
-        "email": OTP.objects.filter(email=params.get('email', otp.email))
+        'phone': params.get('phone', " "),
+        'password': params['password'],
+        'username': params.get('username', " "),
+        'last_name': params.get('last_name', " "),
+        'email': token['email']
     }
 
     if params.get('key', None):
@@ -42,36 +41,98 @@ def regis(requests, params):
             "is_superuser": True,
             "user_type": params['key']  # 1-derector 2-ombor 3-magazin
         })
-
     user = User.objects.create_user(**user_data)
     token = Token.objects.create(user=user)
-    return custom_response(False, {
-        "Success": "Ваш аккаунт успешно создан",
-        "Ваш секретный ключ": token.key
+    return custom_response(True, data=token.key)
+
+
+def login(requests, params):
+    nott = 'password' if 'password' not in params else 'email' if 'email' not in params else ''
+
+    if nott:
+        return custom_response(False, message=f"{nott} paramsda bo'lishi kerak")
+
+    user = User.objects.filter(email=params['email']).first()
+    if not user:
+        return custom_response(False, message='Bu nomerga user yo"q')
+
+    # password = params['password']
+
+    if not user.check_password(params['password']):
+        return custom_response(False, message='Parol xato')
+
+    token = Token.objects.get_or_create(user=user)[0]
+
+    return custom_response(True, data={"token": token.key}, message="Login bo'ldi")
+
+
+def logout(requests, params):
+    token = Token.objects.filter(user=requests.user).first()
+
+    if token:
+        token.delete()
+
+    return custom_response(True, message="Token o'chirildi")
+
+
+def StepOne(requests, params):
+    # send_email()
+    if 'email' not in params:
+        return custom_response(False, message="Data to'liq emas")
+
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    if not re.fullmatch(regex, params['email']):
+        return custom_response(False, message="Xato email")
+
+    code = random.randint(1000000, 9999999)
+
+    send_email(OTP=code, email=params['email'])
+
+    shifr = uuid.uuid4().__str__() + '&' + str(code) + '&' + generate_key(21)
+    shifr = code_decoder(shifr, l=3)
+
+    otp = OTP.objects.create(key=shifr, email=params['email'])
+
+    return custom_response(True, data={
+        'otp': code,
+        'token': otp.key
     })
 
 
-def login(request, params):
-    not_data = 'phone' if 'phone' not in params else 'password' if 'password' not in params else ''
-    if not_data:
-        return custom_response(False, message=error_params_unfilled(not_data))
+def StepTwo(requests, params):
+    nott = 'otp' if 'otp' not in params else 'token' if 'token' not in params else ''
+    if nott:
+        return custom_response(False, message=f"{nott} paramsda bo'lishi kerak")
 
-    user = User.objects.filter(phone=params['phone']).first()
-    if not user:
-        return custom_response(False, message=MESSAGE['UserNotFound'])
+    token = check_token_in_db(params['token'])
+    if not token:
+        return custom_response(False, message="Token xato")
 
-    if not user.check_password(params['password']):
-        return custom_response(True, message=MESSAGE['UserPasswordError'])
+    if token['is_conf']:
+        return custom_response(False, message="Token ishlatilgan")
 
-    token = Token.objects.get_or_create(user=user)
-    return custom_response(True, data={"succes": token[0].key})
+    if token['is_expire']:
+        return custom_response(False, message="Token eski")
 
+    now = datetime.datetime.now(datetime.timezone.utc)
 
-def logout(request, params):
-    token = Token.objects.filter(user=request.user).first()
-    if token:
-        token.delete()
-    return custom_response(True, message=MESSAGE['LogedOut'])
+    if (now - token['created']).total_seconds() >= 180:
+        token['is_expire'] = True
+        update_token(token)
+        return custom_response(False, message="Tokenga berilgan vaqt tugadi")
+
+    code = code_decoder(token['key'], decode=True, l=3).split('&')[1]
+
+    if str(params['otp']) != code:
+        token['tries'] += 1
+        update_token(token)
+
+        return custom_response(False, message="Kode xato")
+
+    token['is_conf'] = True
+    update_token(token)
+
+    return custom_response(True, message="Ishladi", data={'otp': code})
 
 
 def user_update(request, params):
@@ -110,143 +171,9 @@ def user_delete(request, params):
     return custom_response(True, message=MESSAGE['UserSuccessDeleted'])
 
 
-# def StepOne(request, params):
-#     not_data = 'phone' if 'phone' not in params else ''
-# 
-#     if not_data:
-#         return custom_response(True, message=error_msg_unfilled(not_data))
-# 
-#     if 'phone' in params:
-#         if type(params['phone']) is not int or len(str(params['phone'])) < 12:
-#             error_msg = f"'{params['phone']}' phone 👈 12ta raqam"
-#             return custom_response(True, message=error_params_unfilled(error_msg))
-# 
-#     code = random.randint(100000, 999999)
-#     sms = send_sms(otp=code, phone=params['phone'])
-#     if sms['status'] != 'waiting':
-#         return custom_response(True, message=error_params_unfilled(sms))
-# 
-#     shifr = uuid.uuid4().__str__() + "$" + str(code) + "$" + generate_key(20)
-# 
-#     shifr = code_decoder(shifr, l=5)
-# 
-#     # letters = string.ascii_letters
-#     # digits = string.digits
-# 
-#     # for_help = digits + letters + digits
-#     # code = ''.join(for_help[random.randint(0, len(for_help)-1)] for i in range(10))
-# 
-#     otp = OTP.objects.create(key=shifr, phone=params['phone'])
-# 
-#     return custom_response(True, data={
-#         "code": code,
-#         'shifr': otp.key
-#     })
-
 def check_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     if re.match(pattern, email):
         return True
     else:
         return False
-
-
-def StepOne(request, params):
-    if 'email' not in params:
-        return custom_response(False, message={"Error": "The data is incomplete"})
-
-    check_email(params['email'])
-
-    user = check_email_in_db(params['email'])
-    if user:
-        return custom_response(False, message={"Error": "Such a user exists"})
-
-    code = random.randint(100000, 999999)
-    # send_email(OTP=code, email=params['email'])
-    shifr = uuid.uuid4().__str__() + "$" + str(code) + "$" + generate_key(20)
-    shifr = code_decoder(shifr, l=5)
-
-    otp = OTP.objects.create(key=shifr, email=params['email'])
-
-    return custom_response(True, message={
-        "otp": code,
-        "token": otp.key
-    })
-
-
-# def StepTwo(request, params):
-#     not_base = 'otp' if 'otp' not in params else '' or 'token' if 'token' not in params else ''
-#     if not_base:
-#         return custom_response(True, error_params_unfilled(not_base))
-#
-#     token = OTP.objects.filter(key=params['token']).first()
-#
-#     if not token:
-#         return custom_response(True, message=('token topilmadi'))
-#
-#     if token.is_expire:
-#         return custom_response(True, message=('token eskirdi'))
-#
-#     if token.is_conf:
-#         token.is_conf = True
-#         token.save()
-#
-#         return custom_response(True, message=MESSAGE['TokenUnUsable'])
-#
-#     now = datetime.datetime.now(datetime.timezone.utc)
-#
-#     if (now - token.create).total_seconds() > 18000:
-#         token.is_expire = True
-#         token.save()
-#
-#         return custom_response(False, message=MESSAGE['TokenUnUsable'])
-#
-#     code = code_decoder(token.key, decode=True, l=5).split("$")[1]
-#     if code != str(params['otp']):
-#         token.tires += 1
-#         token.save()
-#         return custom_response(True, message=MESSAGE['TokenUnUsable'])
-#
-#     token.is_conf = True
-#     user = User.objects.filter(phone=token.phone).first()
-#
-#     return custom_response(True, message={"is_registered": user is not None})
-
-def StepTwo(request, params):
-    nott = 'otp' if 'otp' not in params else 'token' if 'token' not in params else ''
-    if nott:
-        return custom_response(False, message=error_params_unfilled(nott))
-
-    token = check_token_in_db(params['token'])
-    token_dete = OTP.objects.filter(key=params['token']).first()
-
-    if not token:
-        return custom_response(False, message=MESSAGE['AuthToken'])
-
-    if token['is_conf']:
-        return custom_response(False, message=MESSAGE["TokenUnUsable"])
-
-    if token['is_expire']:
-        return custom_response(False, message=MESSAGE['TokenUnUsable'])
-
-    now = datetime.datetime.now(datetime.timezone.utc)
-
-    if (now - token_dete.created).total_seconds() >= 1800:
-        token['is_expire'] = True
-        update_token(token)
-        return custom_response(False, message={"Error": "Tokenga ajratilgan vaqt tugadi"})
-
-    code = code_decoder(token['key'], decode=True, l=5).split('$')[1]
-
-    if str(params['otp']) != code:
-        token['tries'] += 1
-        update_token(token)
-        return custom_response(True, message=MESSAGE['PasswordError'])
-
-    token['is_conf'] = True
-    update_token(token)
-
-    return custom_response(True, message={
-        "Succes": "Worked",
-        'otp': code
-    })

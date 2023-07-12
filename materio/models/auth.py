@@ -31,11 +31,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomerUserManager()
 
-    USERNAME_FIELD = 'phone'
+    USERNAME_FIELD = 'email'
 
 
 class OTP(models.Model):
-    email = models.CharField(max_length=20)
+    email = models.CharField(max_length=1024)
     key = models.CharField(max_length=512)
 
     is_conf = models.BooleanField(default=False)
