@@ -2,12 +2,6 @@ from django.contrib.auth.models import UserManager, AbstractBaseUser, Permission
 from django.db import models
 
 
-def user_types(key):
-    return {
-        "direktor": 1,
-        "ombor": 2,
-        "magazin": 3,
-    }.get(key, 0)
 
 
 class CustomerUserManager(UserManager):

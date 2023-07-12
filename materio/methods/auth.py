@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from materio.models import User
 from base.server import check_email_in_db, check_token_in_db, check_user_in_token_db, update_token
 from base.sen_email import send_email
-from materio.models.auth import OTP, user_types
+from materio.models.auth import OTP
 
 
 def regis(requests, params):
@@ -40,7 +40,7 @@ def regis(requests, params):
         user_data.update({
             "is_staff": True,
             "is_superuser": True,
-            "type": user_types(params['key'])
+            "type": params['key']  # 1-derector 2-ombor 3-magazin
         })
 
     user = User.objects.create_user(**user_data)
@@ -250,5 +250,3 @@ def StepTwo(request, params):
         "Succes": "Worked",
         'otp': code
     })
-
-
