@@ -3,9 +3,9 @@ from django.db import models
 
 
 class CustomerUserManager(UserManager):
-    def create_user(self, phone, user_type=0, password=None, is_staff=False, is_superuser=False, is_active=True, **extra_fields):
+    def create_user(self, phone, last_name=None, email=None, user_type=0, password=None, is_staff=False, is_superuser=False, is_active=True, **extra_fields):
         user = self.model(phone=phone, password=password, is_staff=is_staff, is_superuser=is_superuser,
-                          is_active=is_active, user_type=user_type)
+                          is_active=is_active, user_type=user_type, last_name=last_name, email=email, **extra_fields)
 
         user.set_password(password)
         user.save()
