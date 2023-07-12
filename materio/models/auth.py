@@ -18,7 +18,7 @@ class CustomerUserManager(UserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=128, unique=True, blank=True, null=True)
-    phone = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    phone = models.CharField(max_length=128, unique=True, blank=True, null=True)
     last_name = models.CharField(max_length=128)
     email = models.CharField(max_length=128, unique=True, blank=True, null=True)
     password = models.CharField(max_length=128)
