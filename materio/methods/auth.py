@@ -40,7 +40,7 @@ def regis(requests, params):
         user_data.update({
             "is_staff": True,
             "is_superuser": True,
-            "type": params['key']  # 1-derector 2-ombor 3-magazin
+            "user_type": params['key']  # 1-derector 2-ombor 3-magazin
         })
 
     user = User.objects.create_user(**user_data)
