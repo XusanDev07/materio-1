@@ -4,3 +4,4 @@ from materio.models.clent import Client
 from materio.models.ombor import Storage, Storage_order, Ombor_buyurtma, OmborMaxsulot
 from materio.models.savdo import savdo_oynasi
 from materio.models.xodim import Employee
+from materio.models.shop import shop
