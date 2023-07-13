@@ -17,10 +17,12 @@ class savdo_oynasi(models.Model):
     ])
 
     def savdo_format(self):
-     "product_name": self.product,
-     "clent_bolsa": self.clent_bolsa,
-     "sotish_narxi": self.sotish_narxi,
-     "valyuta": self.valyuta
-
+     return {
+      "id": self.id,
+      "product_name": self.product,
+      "clent_bolsa": self.clent_bolsa,
+      "sotish_narxi": self.sotish_narxi,
+      "valyuta": self.valyuta
+     }
     def __str__(self):
         return self.product
