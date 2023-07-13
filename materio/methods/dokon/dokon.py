@@ -32,7 +32,7 @@ def add_dokon(request, params):
         name=params['name'],
         location=params['location'],
         employee_number=params['employee_number'],
-        product=paramsproduct,
+        product=product,
         savdo=savdo,
         product_number=params['product_number']
     )
