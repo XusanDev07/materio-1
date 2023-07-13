@@ -16,14 +16,6 @@ class savdo_oynasi(models.Model):
         ("UZS", "UZS")
     ])
 
-    def x_format(self):
-        return {
-            "id": self.id,
-            "product": self.product,
-            "clent": self.clent_bolsa,
-            "sotish_narxi": self.sotish_narxi,
-            "valyuta": self.valyuta
-
 
     def __str__(self):
         return self.product
