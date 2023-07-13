@@ -17,7 +17,6 @@ class savdo_oynasi(models.Model):
     ])
 
     def savdo_format(self):
-     "id": self.id,
      "product_name": self.product,
      "clent_bolsa": self.clent_bolsa,
      "sotish_narxi": self.sotish_narxi,
