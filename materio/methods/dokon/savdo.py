@@ -14,7 +14,7 @@ def savdo_ooynasi(request, params):
         return result
 
     return {
-        "result": [x.x_format() for x in savdo_oynasi.objects.all()]
+        "result": [x.savdo_format() for x in savdo_oynasi.objects.all()]
     }
 
 
