@@ -31,5 +31,5 @@ def add_savdo(request, params):
     valyuta = params['valyuta']
 
     savdo_oynasi.objects.get_or_create(product=product, clent_bolsa=clent, sotish_narxi=sotish_narx, valyuta=valyuta)
-    return custom_response(status=True, message={"Qilgan savdoyingiz uchun raxmat"}
+    return custom_response(status=True, message={"Qilgan savdoyingiz uchun raxmat"})
 
