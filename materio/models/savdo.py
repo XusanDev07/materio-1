@@ -23,6 +23,7 @@ class savdo_oynasi(models.Model):
             "clent": self.clent_bolsa,
             "sotish_narxi": self.sotish_narxi,
             "valyuta": self.valyuta
-    
+
+            
     def __str__(self):
         return self.product
