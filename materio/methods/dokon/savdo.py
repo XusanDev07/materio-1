@@ -22,66 +22,45 @@ def add_savdo(request, params):
     result = magazin_inspection(request)
     if not result['status']:
         return result
+    if request.user.username != Client.objects.get(name) or request.user.phone != Client.objects.get(phone):
+        return custom_response(status=False, message={"Siz clentlar ro'yxatida yo'qsiz"})
+    
+    product = Maxsulot.objects.get(product_name=params['product_name')
+    clent = Client.objects.get(name=params['clent_name')
+    sotish_narx = params['sotish_narxi']
+    valyuta = params['valyuta']
 
-    data = {
-        'name_prod': params['name_prod'],
-        'color_prod': params['color_prod'],
-        'size_prod': params['size_prod'],
-        'number_prod': params['number_prod'],
-        'clent_bolsa': params['clent_bolsa'],
-        'money_prod': params['money_prod'],
-        'valyuta': params['valyuta'],
-    }
-
-
-def maxsulotlar_onyasi(request, params):
-    result = magazin_inspection(request)
-    if not result['status']:
-        return result
-
-    return {
-        "result": [x.product_format() for x in Maxsulot.objects.all()]
-    }
+    savdo_oynasi.objects.get_or_create(product=product, clent_bolsa=clent, sotish_narxi=sotish_narx, valyuta=valyuta)
+    return custom_response(status=True, message={"Qilgan savdoyingiz uchun raxmat"}
 
 
-def clent_oynasi(request, params):
-    result = magazin_inspection(request)
-    if not result['status']:
-        return result
 
-    return {
-        "result": [x.clent_format() for x in Client.objects.all()]
-    }
+# def buyurtma_oynasi(request, params):
+#     result = magazin_inspection(request)
+#     if not result['status']:
+#         return result
 
+#     if request.user.username != Client.objects.get(name) and request.user.phone != Client.objects.get(phone) or request.user.is_anonymous:
+#         return custom_response(status=False, message={"Siz clentlar ro'yxatida yo'qsiz"})
+    
+    
+#     if "product_name" not in params or "maxsulot_soni" not in params or "user_name" not in params:
+#         return custom_response(False, message="Params toliq emas")
 
-def buyurtma_oynasi(request, params):
-    result = magazin_inspection(request)
-    if not result['status']:
-        return result
+#     ombor = Storage.objects.filter(id=params["ombor_id"]).first()
+#     product = Maxsulot.objects.filter(product_name=params["name"]).first()
+#     if not product:
+#         return custom_response(False, message="Bunday mahsulot topilmadi")
+#     if not ombor:
+#         return custom_response(False, message={"bunday ID lik ombor yoq"})
 
-    if request.user.is_anonymous:
-        return custom_response(status=False, message={"error"})
+#     if ombor.product_num < params["maxsulot_soni"]:
+#         return custom_response(False, message="Mahsulot yetarli emas")
 
+#     a = User.objects.get(username=params['user_name'])
+#     if not a:
+#         return custom_response(status=False, message={"bunday user yo'q"})
 
-    if "name" not in params or "soni" not in params or "user_id" not in params:
-        return custom_response(False, message="Params toliq emas")
+#     savdo_oynasi.objects.get_or_create(product=product, clent_bolsa=a, sotish_narxi=params['narx'], valyuta=params['valyuta'])
 
-    ombor = Storage.objects.filter(id=params["ombor_id"]).first()
-    product = Maxsulot.objects.filter(product_name=params["name"]).first()
-    if not product:
-        return custom_response(False, message="Bunday mahsulot topilmadi")
-    if not ombor:
-        return custom_response(False, message={"bunday ID lik ombor yoq"})
-
-    if ombor.product_num < params["soni"]:
-        return custom_response(False, message="Mahsulot yetarli emas")
-
-    a = User.objects.get(username=params['user_id'])
-    if not a:
-        return custom_response(status=False, message={"bunday user yo'q"})
-
-    savdo_oynasi.objects.get_or_create(product=product, clent_bolsa=a, sotish_narxi=params['narx'], valyuta=params['valyuta'])
-
-    return {
-        "succes"
-    }
+#     return custom_response(status=True, message={"Qilgan savdoyingiz uchun raxmat"}
