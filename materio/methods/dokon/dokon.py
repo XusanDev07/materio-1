@@ -1,5 +1,5 @@
 from materio.methods.direktor.home_page import direc_inspection
-from materio.models import Maxsulot, shop
+from materio.models import Maxsulot, shop, savdo_oynasi
 from methodism import custom_response, MESSAGE, error_params_unfilled
 
 
@@ -26,13 +26,14 @@ def add_dokon(request, params):
     if all_info:
         return custom_response(status=False, message=error_params_unfilled(all_info))
 
-
+    product = Maxsulot.objects.get(product_name=params['product'])
+    savdo = savdo_oynasi.objects.get(id=params['savdo_id'])
     shop.objects.get_or_create(
         name=params['name'],
         location=params['location'],
         employee_number=params['employee_number'],
-        product=params['product'],
-        savdo=params['savdo'],
+        product=paramsproduct,
+        savdo=savdo,
         product_number=params['product_number']
     )
     return custom_response(status=True, message={"Do'kon qo'shildi"})
