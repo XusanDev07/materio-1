@@ -24,6 +24,6 @@ class savdo_oynasi(models.Model):
             "sotish_narxi": self.sotish_narxi,
             "valyuta": self.valyuta
 
-            
+
     def __str__(self):
         return self.product
