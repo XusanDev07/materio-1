@@ -3,7 +3,7 @@ from materio.models import Maxsulot, Storage, User
 from materio.models.savdo import savdo_oynasi
 from materio.models import Client
 from materio.methods.direktor.home_page import magazin_inspection
-
+from methodism import custom_response
 
 def savdo_ooynasi(request, params):
     result = magazin_inspection(request)
