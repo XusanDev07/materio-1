@@ -60,8 +60,8 @@ def update_clent(request, params):
 
 def delete_clent(request, params):
     try:
-        ombor = Client.objects.get(product_name=params['product_name'])
-        ombor.delete()
+        clent = Client.objects.get(name=params['name'])
+        clent.delete()
         return custom_response(status=True, message="Succes")
     except Client.DoesNotExist:
-        return custom_response(status=False, message={"Error": "Bunday ombor topilmadi"})
+        return custom_response(status=False, message={"Error": "Clent ochirildi"})
