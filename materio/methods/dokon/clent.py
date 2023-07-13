@@ -25,6 +25,10 @@ def add_clent(request, params):
     if all_info:
         return custom_response(status=False, message=error_params_unfilled(all_info))
 
+    clent = Client.objects.filter(name=params['name']).first()
+    if clent:
+        return custom_response(status=False, message={"Bunaqa user mavjud"})
+    
     Client.objects.get_or_create(
         name=params['name'],
         phone=params['phone'],
