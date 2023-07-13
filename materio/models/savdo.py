@@ -3,7 +3,7 @@ from django.db import models
 from materio.models import Maxsulot, User
 from materio.models.clent import Client
 
-
+ 
 class savdo_oynasi(models.Model):
 
     product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
