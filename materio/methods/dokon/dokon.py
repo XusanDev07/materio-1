@@ -19,7 +19,7 @@ def add_dokon(request, params):
         return result
 
     all_info = next((field for field in [
-        "name", "location", "product", "employee_number", "savdo",
+        "name", "location", "product", "employee_number", "savdo_id",
         "product_number"
     ] if field not in params), '')
 
