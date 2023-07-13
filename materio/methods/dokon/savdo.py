@@ -25,7 +25,7 @@ def add_savdo(request, params):
     if request.user.username != Client.objects.get(name) or request.user.phone != Client.objects.get(phone):
         return custom_response(status=False, message={"Siz clentlar ro'yxatida yo'qsiz"})
     
-    product = Maxsulot.objects.get(product_name=params['product_name')
+    product = Maxsulot.objects.get(product_name=params['product_name'])
     clent = Client.objects.get(name=params['clent_name')
     sotish_narx = params['sotish_narxi']
     valyuta = params['valyuta']
