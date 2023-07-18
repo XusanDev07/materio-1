@@ -1,10 +1,10 @@
 from methodism import custom_response, error_params_unfilled
-from materio.methods.direktor.home_page import direc_inspection
+from materio.methods.direktor.home_page import ombor_inspection
 from materio.models.ombor import Storage
 
 
 def add_ombor(request, params):
-    result = direc_inspection(request)
+    result = ombor_inspection(request)
     if not result['status']:
         return result
 
@@ -27,7 +27,7 @@ def add_ombor(request, params):
 
 
 def get_ombor(request, params):
-    result = direc_inspection(request)
+    result = ombor_inspection(request)
     if not result['status']:
         return result
 
@@ -37,6 +37,10 @@ def get_ombor(request, params):
 
 
 def update_ombor(request, params):
+    result = ombor_inspection(request)
+    if not result['status']:
+        return result
+        
     error = next((field for field in [
         "name", "location", "product_num", "money_type", "employee_num"
     ] if field not in params), '')
