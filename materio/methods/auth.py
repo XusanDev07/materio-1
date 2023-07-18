@@ -86,7 +86,7 @@ def StepOne(requests, params):
 
     code = random.randint(1000000, 9999999)
 
-    send_email(OTP=code, email=params['email'])
+    # send_email(OTP=code, email=params['email'])
 
     shifr = uuid.uuid4().__str__() + '&' + str(code) + '&' + generate_key(21)
     shifr = code_decoder(shifr, l=3)
