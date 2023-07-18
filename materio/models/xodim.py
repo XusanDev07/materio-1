@@ -4,7 +4,7 @@ from django.db import models
 class Employee(models.Model):
     name = models.CharField(max_length=128)
     phone = models.CharField(max_length=50)
-    passport = models.CharField(max_length=9)
+    passport = models.CharField(max_length=1024)
 
     def employee_format(self):
         return {
