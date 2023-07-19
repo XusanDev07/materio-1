@@ -2,8 +2,11 @@ from django.db import models
 
 
 class Kassa(models.Model):
-    date = models.DateTimeField(auto_now=True)
-    product_name = models.CharField(max_length=128)
-    magazin_name = models.CharField(max_length=128)
-    summa = models.IntegerField(max_length=128)
-    summa_type = models.CharField(max_length=50)
+    tushumlar = models.BigIntegerField()
+    chiqimlar = models.BigIntegerField()
+    foyda = models.BigIntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.foyda
+        
