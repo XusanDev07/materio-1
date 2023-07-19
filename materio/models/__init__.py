@@ -5,3 +5,4 @@ from materio.models.ombor import Storage, Storage_order, Ombor_buyurtma, OmborMa
 from materio.models.savdo import savdo_oynasi
 from materio.models.xodim import Employee
 from materio.models.shop import shop
+from materio.models.tushumlar import Kassa
