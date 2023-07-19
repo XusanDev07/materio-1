@@ -11,4 +11,4 @@ def kassa(request, params):
   foyda = tushumlar - chiqimlar
   Kassa.objects.create(tushumlar=tushumlar, chiqimlar=chiqimlar, foyda=foyda)
   
-  return custom_response(status=True message={"Malumot saqlandi"})
+  return custom_response(status=True, message={"Malumot saqlandi"})
