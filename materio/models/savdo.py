@@ -20,7 +20,7 @@ class savdo_oynasi(models.Model):
      return {
       "id": self.id,
       "product_name": self.product.product_name,
-      "clent_bolsa": self.clent_bolsa,
+      "clent_bolsa": self.clent_bolsa.name,
       "sotish_narxi": self.sotish_narxi,
       "valyuta": self.valyuta
      }
