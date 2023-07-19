@@ -50,7 +50,17 @@ class chetdan_buyurtma(models.Model):
         ("qabul_qilindi", "qabul_qilindi")
     ])
     maxsulot = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
+    maxsulot_soni = models.IntegerField(default=1)
+    narxi = models.BigIntegerField()
 
+    
+    def save(self, *args, **kwargs):
+        self.narxi = int(self.maxsulot.product_price) * int(self.maxsulot_soni)
+        self.price_type = f"{self.maxsulot.product_price_type}"
+
+        return super(chetdan_buyurtma, self).save(*args, **kwargs)
+        
+    
     def chetdan_buyurtma_format(self):
         return {
             "id": self.id,
