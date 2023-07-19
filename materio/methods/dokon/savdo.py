@@ -10,9 +10,6 @@ def savdo_ooynasi(request, params):
     if not result['status']:
         return result
 
-    if not result['status']:
-        return result
-
     return {
         "result": [x.savdo_format() for x in savdo_oynasi.objects.all()]
     }
