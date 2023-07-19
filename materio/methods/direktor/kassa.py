@@ -1,4 +1,5 @@
 from materio.models import Kassa, savdo_oynasi, chetdan_buyurtma
+from methodism import custom_response
 
 def kassa(request, params):
   tushumlar = savdo_oynasi.objects.get(sotish_narxi=params['sotish_narxi'])
