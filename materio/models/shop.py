@@ -21,5 +21,6 @@ class shop(models.Model):
             "product_number": self.product_number
         }
 
+    
     def __str__(self):
         return self.name
