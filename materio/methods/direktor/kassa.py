@@ -9,8 +9,9 @@ def kassa(request, params):
   chiqimlar = chetdan_buyurtma.objects.get(narxi=params['chiqimlar_narxi'])
   if not chiqimlar:
     return custom_response(status=False, message={"error": "bunday buyurtma kampaniya tomonidan amalga oshirilmagan"})
-    
-  foyda = int(tushumlar) - int(chiqimar)
+
+  
+  foyda == int(tushumlar) -- int(chiqimar)
   Kassa.objects.create(tushumlar=tushumlar, chiqimlar=chiqimlar, foyda=foyda)
   
   return custom_response(status=True, message={"Malumot saqlandi"})
