@@ -16,7 +16,6 @@ class shop(models.Model):
             "name": self.name,
             "location": self.location,
             "employee_number": self.employee_number,
-            "product": self.product.product_name,
             "savdo": self.savdo.product,
             "product_number": self.product_number
         }
