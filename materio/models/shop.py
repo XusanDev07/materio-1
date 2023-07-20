@@ -12,13 +12,7 @@ class shop(models.Model):
 
     def dokon_format(self):
         return {
-            'id': self.id,
-            "name": self.name,
-            "location": self.location,
-            "employee_number": self.employee_number,
-            "product": self.product.product_name,
-            "savdo": self.savdo.product,
-            "product_number": self.product_number
+            'id': self.id
         }
 
     
