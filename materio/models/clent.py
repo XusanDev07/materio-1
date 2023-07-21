@@ -12,7 +12,8 @@ class Client(models.Model):
     def clent_format(self):
         return {
             "id": self.id,
-            "phone": self.phone,
+            "phone": self.name,
+            "name": self.phone,
             "xabar_berish": self.xabar_berish,
             "oxirgi_xarid": self.oxirgi_product
 
