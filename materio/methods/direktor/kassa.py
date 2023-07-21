@@ -1,5 +1,6 @@
 from materio.models import Kassa, savdo_oynasi, chetdan_buyurtma
 from methodism import custom_response
+from django.db.models import Sum
 
 def kassa(request, params):
     try:
@@ -15,7 +16,7 @@ def kassa(request, params):
     
 def tushumlar(request, params):
     tushumlar_objects = savdo_oynasi.objects.all()
-    tushumlar_sum = sum(tushumlar.sotish_narxi for tushumlar in tushumlar_objects)
+    tushumlar_sum = aggregate(tushumlar.sotish_narxi for tushumlar in tushumlar_objects)
 
     return custom_response(status=True, message={"Tushumlar": tushumlar_sum})
 
