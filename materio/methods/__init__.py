@@ -5,7 +5,7 @@ from materio.methods.direktor import add_xodim, get_xodim, update_xodim, add_pro
     delete_product, kassa
 from materio.methods.dokon import add_savdo, savdo_ooynasi, get_clent, add_clent, delete_clent, update_clent,\
     get_dokon, add_dokon, delete_dokon, update_dokon
-
+from materio.methods.direktor.kassa import tushumlar
 
 ununsable_variable = dir()
 
