@@ -30,7 +30,9 @@ class Maxsulot(models.Model):
             "joyi": self.joyi,
             "soni": self.soni,
             "product_price": self.product_price,
-            "entry_price": self.entry_price
+            "entry_price": self.entry_price,
+            "product_price_type": self.product_price_type,
+            "entry_price_type": self.entry_price_type
         }
 
 
