@@ -13,10 +13,9 @@ def kassa(request, params):
     Kassa.objects.create(tushumlar=tushumlar, chiqimlar=chiqimlar, foyda=foyda)
 
     return custom_response(status=True, message={"Malumot saqlandi"})
-    
+
 def tushumlar(request, params):
     tushumlar_objects = savdo_oynasi.objects.all()
-    tushumlar_sum = aggregate(tushumlar.sotish_narxi for tushumlar in tushumlar_objects)
+    tushumlar_sum = tushumlar_objects.aggregate(Sum('sotish_narxi'))['sotish_narxi__sum']
 
     return custom_response(status=True, message={"Tushumlar": tushumlar_sum})
-
