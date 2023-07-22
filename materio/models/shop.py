@@ -17,7 +17,8 @@ class shop(models.Model):
             'employee_number': self.employee_number,
             'product': self.product.product_name,
             'savdo': self.savdo.sotish_narxi,
-            'product_number': self.product_number
+            'product_number': self.product_number,
+            'valyuta': self.product.product_price_type
         }
 
     
