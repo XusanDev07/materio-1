@@ -49,7 +49,7 @@ def add_product(request, params):
         entry_price=params['entry_price'],
         entry_price_type=params['entry_price_type']
     )
-    return custom_response(status=True, message={"Olma zakas qilindi tez orada yetib boradi"})
+    return custom_response(status=True, message={"Product qo'shildi"})
 
 
 def update_product(request, params):
