@@ -16,7 +16,7 @@ def maxsulot_format(data: Maxsulot):
     }
 
 
-def dokon_maxsulot(request, data:shop, pk):
+def dokon_maxsulot(request, pk):
     a = Maxsulot.objects.filter(id=pk).first()
     if a:
          return {
