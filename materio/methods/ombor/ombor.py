@@ -20,8 +20,7 @@ def add_ombor(request, params):
         location=params['location'],
         product_num=params['product_num'],
         money_type=params['money_type'],
-        employee_num=params['employee_num'],
-        product=params['product_name']
+        employee_num=params['employee_num']
     )
 
     return custom_response(status=True, message={"Succes": "Ombor qo'shildi"})
