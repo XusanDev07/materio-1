@@ -16,6 +16,7 @@ class Storage(models.Model):
     
     def storges_format(self):
         return {
+            "id": self.id,
             "nomi": self.name,
             "location": self.location,
             "product_num": self.product_num,
