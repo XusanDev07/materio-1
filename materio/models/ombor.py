@@ -57,7 +57,7 @@ class Storage_order(models.Model):
 class OmborMaxsulot(models.Model):
     maxsulot = models.ForeignKey(Maxsulot, on_delete=models.CASCADE)
     ombor = models.ForeignKey(Storage, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return f'{self.ombor}: {self.maxsulot}'
 

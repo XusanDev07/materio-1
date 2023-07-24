@@ -16,6 +16,7 @@ class Maxsulot(models.Model):
         ("USD", "USD"),
         ("YUAN", "YUAN"),
         ("UZS", "UZS")
+        
     ])
     entry_price = models.IntegerField(default=0)
     entry_price_type = models.CharField(max_length=128, choices=[
