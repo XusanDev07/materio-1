@@ -9,7 +9,7 @@ def add_ombor(request, params):
         return result
 
     all_info = next((field for field in [
-        "name", "location", "product_num", "money_type", "employee_num"
+        "name", "location", "product_num", "money_type", "employee_num", "product_name"
     ] if field not in params), '')
 
     if all_info:
@@ -20,7 +20,8 @@ def add_ombor(request, params):
         location=params['location'],
         product_num=params['product_num'],
         money_type=params['money_type'],
-        employee_num=params['employee_num']
+        employee_num=params['employee_num'],
+        product=params['product_name']
     )
 
     return custom_response(status=True, message={"Succes": "Ombor qo'shildi"})
