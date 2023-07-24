@@ -16,7 +16,7 @@ def maxsulot_format(data: Maxsulot):
     }
 
 
-def dokon_ombor(request, params, pk):
+def dokon_ombor(request, params):
     result = direc_inspection(request)
     if not result['status']:
         return result
