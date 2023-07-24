@@ -1,5 +1,6 @@
 from materio.models.base import Maxsulot
 from materio.models import shop
+from materio.methods.direktor.home_page import direc_inspection
 
 def maxsulot_format(data: Maxsulot):
     return {
@@ -16,6 +17,10 @@ def maxsulot_format(data: Maxsulot):
 
 
 def dokon_ombor(request, params, pk):
+    result = direc_inspection(request)
+    if not result['status']:
+        return result
+
     pk = Maxsulot.objects.filter(id=params['pk'])
     if pk:
         return {
