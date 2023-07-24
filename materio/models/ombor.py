@@ -14,7 +14,7 @@ class Storage(models.Model):
     ])
     employee_num = models.IntegerField()
     product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
-    
+
     def storges_format(self):
         return {
             "id": self.id,
