@@ -7,16 +7,19 @@ def add_xodim(request, params):
     if "name" not in params or "phone" not in params or "passport" not in params:
         return custom_response(False, message=MESSAGE['ParamsNotFull'])
 
-    saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])[0]
     a = Employee.objects.get(passport=params['passport'])
     if a:
         return custom_response(status=False, message={"error": "Bunaqa user Mavjud"})
+    saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])[0]
+    
     if not saves:
         return custom_response(status=False, message={"Error"})
 
     return {
         "usrra": saves.employee_format()
     }
+
+    
 
 
 def get_xodim(request, params):
