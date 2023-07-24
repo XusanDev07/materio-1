@@ -21,7 +21,9 @@ class Storage(models.Model):
             "location": self.location,
             "product_num": self.product_num,
             "xodim_soni": self.employee_num,
-            "money_type": self.money_type
+            "money_type": self.money_type,
+            "product_name": self.product.product_name
+
         }
 
     def __str__(self):
