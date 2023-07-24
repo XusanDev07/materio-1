@@ -25,7 +25,7 @@ def add_ombor(request, params):
         product_num=params['product_num'],
         money_type=params['money_type'],
         employee_num=params['employee_num'],
-        product=pro.id,
+        product=pro,
     )
 
     return custom_response(status=True, message={"Succes": "Ombor qo'shildi"})
