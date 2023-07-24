@@ -10,7 +10,7 @@ def add_xodim(request, params):
     a = Employee.objects.get(passport=params['passport'])
     if a:
         return custom_response(status=False, message={"error": "Bunaqa user Mavjud"})
-    saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])[0]
+    saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])
     
     if not saves:
         return custom_response(status=False, message={"Error"})
