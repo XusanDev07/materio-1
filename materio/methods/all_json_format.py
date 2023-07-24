@@ -1,5 +1,4 @@
 from materio.models.base import Maxsulot
-from materio.models.base import Storage, Storage_order
 from materio.models import shop
 
 def maxsulot_format(data: Maxsulot):
