@@ -21,7 +21,7 @@ def dokon_ombor(request, params):
     if not result['status']:
         return result
 
-    pk = Maxsulot.objects.filter(id=params['pk'])
+    pk = Maxsulot.objects.filter(id=params['pk']).first()
     if pk:
         return {
             "id": pk.id,
