@@ -13,7 +13,6 @@ class Storage(models.Model):
         ("UZS", "UZS")
     ])
     employee_num = models.IntegerField()
-    product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL)
     
     def storges_format(self):
         return {
@@ -21,8 +20,7 @@ class Storage(models.Model):
             "location": self.location,
             "product_num": self.product_num,
             "xodim_soni": self.employee_num,
-            "money_type": self.money_type,
-            "product_name": self.product.product_name
+            "money_type": self.money_type
 
         }
 
