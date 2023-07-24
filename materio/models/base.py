@@ -1,6 +1,7 @@
 from materio.models.auth import User
 from django.db import models
-from materio.models import Storage, shop
+from materio.models.ombor import Storage
+from materio.models.shop import shop
 
 class Maxsulot(models.Model):
     product_name = models.CharField(max_length=128)
