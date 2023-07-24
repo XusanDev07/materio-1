@@ -19,16 +19,14 @@ def add_ombor(request, params):
     if not pro:
         return custom_response(status=404, message="Bunaqa product yo'q")
 
-    for i in pro:
-        Storage.objects.get_or_create(
-            name=params['name'],
-            location=params['location'],
-            product_num=params['product_num'],
-            money_type=params['money_type'],
-            employee_num=params['employee_num'],
-            product=i,
-
-        )
+    Storage.objects.get_or_create(
+        name=params['name'],
+        location=params['location'],
+        product_num=params['product_num'],
+        money_type=params['money_type'],
+        employee_num=params['employee_num'],
+        product=pro,
+    )
 
     return custom_response(status=True, message={"Succes": "Ombor qo'shildi"})
 
