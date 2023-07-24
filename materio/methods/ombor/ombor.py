@@ -9,7 +9,7 @@ def add_ombor(request, params):
         return result
 
     all_info = next((field for field in [
-        "name", "location", "product_num", "money_type", "employee_num", "product_name"
+        "name", "location", "product_num", "money_type", "employee_num"
     ] if field not in params), '')
 
     if all_info:
