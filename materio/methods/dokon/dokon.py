@@ -20,7 +20,7 @@ def add_dokon(request, params):
 
     all_info = next((field for field in [
         "name", "location", "product", "employee_number", "savdo_id",
-        "product_number"
+        "product_number", "color"
     ] if field not in params), '')
 
     if all_info:
@@ -34,7 +34,9 @@ def add_dokon(request, params):
         employee_number=params['employee_number'],
         product=product,
         savdo=savdo,
-        product_number=params['product_number']
+        product_number=params['product_number'],
+        color=params['color']
+
     )
     return custom_response(status=True, message={"Do'kon qo'shildi"})
 
