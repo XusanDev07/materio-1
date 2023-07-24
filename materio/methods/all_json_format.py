@@ -17,7 +17,7 @@ def maxsulot_format(data: Maxsulot):
 
 
 def dokon_ombor(request, params, pk):
-    pk = Maxsulot.objects.filter(id=pk)
+    pk = Maxsulot.objects.filter(id=params['pk'])
     if pk:
         return {
             "id": pk.id,
