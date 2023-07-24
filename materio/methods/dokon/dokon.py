@@ -1,4 +1,4 @@
-from materio.methods.direktor.home_page import direc_inspection
+from materio.methods.direktor.home_page import magazin_inspection, direc_inspection
 from materio.models import Maxsulot, shop, savdo_oynasi
 from methodism import custom_response, MESSAGE, error_params_unfilled
 
@@ -14,7 +14,7 @@ def get_dokon(request, params):
 
 
 def add_dokon(request, params):
-    result = direc_inspection(request)
+    result = magazin_inspection(request)
     if not result['status']:
         return result
 
