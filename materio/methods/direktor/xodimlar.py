@@ -4,21 +4,21 @@ from materio.models.xodim import Employee
 
 
 def add_xodim(request, params):
-    if "name" not in params or "phone" not in params or "passport" not in params:
-        return custom_response(False, message=MESSAGE['ParamsNotFull'])
+    try:
+        if "name" not in params or "phone" not in params or "passport" not in params:
+            return custom_response(False, message=MESSAGE['ParamsNotFull'])
 
-    a = Employee.objects.get(passport=params['passport'])
-    if a:
-        return custom_response(status=False, message={"error": "Bunaqa user Mavjud"})
-    saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])
-    
-    if not saves:
-        return custom_response(status=False, message={"Error"})
+        a = Employee.objects.get(passport=params['passport'])
+        if a:
+            return custom_response(status=False, message={"error": "Bunaqa user Mavjud"})
+        saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])
+        
 
-    return {
-        "usrra": saves.employee_format()
-    }
-
+        return {
+            "usrra": saves.employee_format()
+        }
+    except Employee.DoesNotExist:
+        return custom_response(status=False, message={"error": "qanaqadir xatolide"})
     
 
 
