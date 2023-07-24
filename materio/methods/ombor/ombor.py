@@ -1,5 +1,6 @@
 from methodism import custom_response, error_params_unfilled
 from materio.methods.direktor.home_page import ombor_inspection
+from materio.models import Maxsulot
 from materio.models.ombor import Storage
 
 
@@ -14,16 +15,20 @@ def add_ombor(request, params):
 
     if all_info:
         return custom_response(status=False, message=error_params_unfilled(all_info))
+    pro = Maxsulot.objects.filter(id=params['product']).first()
+    if not pro:
+        return custom_response(status=404, message="Bunaqa product yo'q")
 
-    Storage.objects.get_or_create(
-        name=params['name'],
-        location=params['location'],
-        product_num=params['product_num'],
-        money_type=params['money_type'],
-        employee_num=params['employee_num'],
-        product=params['product'],
+    for i in pro:
+        Storage.objects.get_or_create(
+            name=params['name'],
+            location=params['location'],
+            product_num=params['product_num'],
+            money_type=params['money_type'],
+            employee_num=params['employee_num'],
+            product=i,
 
-    )
+        )
 
     return custom_response(status=True, message={"Succes": "Ombor qo'shildi"})
 
