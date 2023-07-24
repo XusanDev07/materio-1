@@ -13,7 +13,8 @@ class Storage(models.Model):
         ("UZS", "UZS")
     ])
     employee_num = models.IntegerField()
-
+    product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL)
+    
     def storges_format(self):
         return {
             "nomi": self.name,
