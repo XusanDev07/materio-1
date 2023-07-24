@@ -1,7 +1,5 @@
 from materio.models.auth import User
 from django.db import models
-from materio.models.ombor import Storage
-from materio.models.shop import shop
 
 class Maxsulot(models.Model):
     product_name = models.CharField(max_length=128)
@@ -10,8 +8,6 @@ class Maxsulot(models.Model):
     joyi = models.CharField(max_length=128)
     soni = models.IntegerField()
     product_price = models.IntegerField(default=0)
-    ombor = models.ForeignKey(Storage, on_delete=models.SET_NULL, null=True, blank=True)
-    dokon = models.ForeignKey(shop, on_delete=models.SET_NULL, null=True, blank=True)
     product_price_type = models.CharField(max_length=128, choices=[
         ("USD", "USD"),
         ("YUAN", "YUAN"),

@@ -1,5 +1,4 @@
 from django.db import models
-
 from materio.models import Maxsulot
 
 
@@ -14,7 +13,7 @@ class Storage(models.Model):
     ])
     employee_num = models.IntegerField()
     product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
-
+    
     def storges_format(self):
         return {
             "id": self.id,
@@ -24,6 +23,7 @@ class Storage(models.Model):
             "xodim_soni": self.employee_num,
             "money_type": self.money_type,
             "product": self.product.product_name
+
         }
 
     def __str__(self):
@@ -57,7 +57,7 @@ class Storage_order(models.Model):
 class OmborMaxsulot(models.Model):
     maxsulot = models.ForeignKey(Maxsulot, on_delete=models.CASCADE)
     ombor = models.ForeignKey(Storage, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return f'{self.ombor}: {self.maxsulot}'
 
