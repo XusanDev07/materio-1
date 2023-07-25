@@ -20,12 +20,10 @@ def add_savdo(request, params):
     result = magazin_inspection(request)
     if not result['status']:
         return result
-    a = Client.objects.filter(phone=request.user.phone).first()
-    if a in None:
-        return custom_response(status=False, message={"Siz clentlar ro'yxatida yo'qsiz"})
+    Client.objects.filter(phone=request.user.phone).first()
 
     product = Maxsulot.objects.get(product_name=params['product_name'])
-    clent = Client.objects.get(name=params['clent_name'])
+    clent = Client.objects.filter(name=params['clent_name']).first()
     sotish_narx = params['sotish_narxi']
     valyuta = params['valyuta']
 
