@@ -19,7 +19,7 @@ def add_savdo(request, params):
     result = magazin_inspection(request)
     if not result['status']:
         return result
-    if not Client.objects.get(phone=request.user.phone):
+    if not Client.objects.filter(phone=request.user.phone).first():
         return custom_response(status=False, message={"Siz clentlar ro'yxatida yo'qsiz"})
     
     product = Maxsulot.objects.get(product_name=params['product_name'])
