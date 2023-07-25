@@ -1,5 +1,5 @@
 from methodism import custom_response, error_params_unfilled
-from materio.methods.direktor.home_page import ombor_inspection
+from materio.methods.direktor.home_page import ombor_inspection, direc_inspection
 from materio.models import Maxsulot
 from materio.models.ombor import Storage
 
@@ -32,12 +32,12 @@ def add_ombor(request, params):
 
 
 def get_ombor(request, params):
-    result = ombor_inspection(request)
+    result = direc_inspection(request)
     if not result['status']:
         return result
 
     return {
-        "result": [x.storges_format() for x in Storage.objects.all()]
+        "result": [x.all_storges_format_() for x in Storage.objects.all()]
     }
 
 
