@@ -12,14 +12,13 @@ def add_xodim(request, params):
         if a:
             return custom_response(status=False, message={"error": "Bunaqa user Mavjud"})
         saves = Employee.objects.get_or_create(name=params['name'], phone=params['phone'], passport=params['passport'])
-        
 
-        return {
-            "usrra": saves.employee_format()
-        }
+        if saves:
+            return {
+                "urra": saves.employee_format()
+            }
     except Employee.DoesNotExist:
         return custom_response(status=False, message={"error": "qanaqadir xatolide"})
-    
 
 
 def get_xodim(request, params):
