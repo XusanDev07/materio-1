@@ -1,6 +1,6 @@
 from methodism import custom_response, MESSAGE
 from materio.models import Maxsulot, Storage, User
-from materio.models.savdo import savdo_oynasi
+from materio.models.savdo import savdo_oynasi as Savdo
 from materio.models import Client
 from materio.methods.direktor.home_page import magazin_inspection
 from methodism import custom_response
@@ -12,7 +12,7 @@ def savdo_ooynasi(request, params):
         return result
 
     return {
-        "result": [x.savdo_format() for x in savdo_oynasi.objects.all()]
+        "result": [x.savdo_format() for x in Savdo.objects.all()]
     }
 
 
