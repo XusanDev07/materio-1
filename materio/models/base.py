@@ -1,6 +1,7 @@
 from materio.models.auth import User
 from django.db import models
 
+
 class Maxsulot(models.Model):
     product_name = models.CharField(max_length=128)
     size = models.CharField(max_length=128)
@@ -12,7 +13,7 @@ class Maxsulot(models.Model):
         ("USD", "USD"),
         ("YUAN", "YUAN"),
         ("UZS", "UZS")
-        
+
     ])
     entry_price = models.IntegerField(default=0)
     entry_price_type = models.CharField(max_length=128, choices=[
@@ -35,7 +36,6 @@ class Maxsulot(models.Model):
             "entry_price_type": self.entry_price_type
         }
 
-
     def __str__(self):
         return self.product_name
 
@@ -55,14 +55,12 @@ class chetdan_buyurtma(models.Model):
     maxsulot_soni = models.IntegerField(default=1)
     narxi = models.BigIntegerField()
 
-    
     def save(self, *args, **kwargs):
         self.narxi = int(self.maxsulot.product_price) * int(self.maxsulot_soni)
         self.price_type = f"{self.maxsulot.product_price_type}"
 
         return super(chetdan_buyurtma, self).save(*args, **kwargs)
-        
-    
+
     def chetdan_buyurtma_format(self):
         return {
             "id": self.id,
