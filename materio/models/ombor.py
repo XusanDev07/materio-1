@@ -22,7 +22,7 @@ class Storage(models.Model):
             "product_num": self.product_num,
             "xodim_soni": self.employee_num,
             "money_type": self.money_type,
-            'product': self.products.product_name,
+            'product': "" if not self.products else self.products.product_name,
 
 
         }
