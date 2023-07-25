@@ -22,7 +22,7 @@ class Storage(models.Model):
             "product_num": self.product_num,
             "xodim_soni": self.employee_num,
             "money_type": self.money_type,
-            "product": self.product.id
+            "product": self.product
 
         }
 
