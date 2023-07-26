@@ -45,16 +45,20 @@ def update_clent(request, params):
     if error:
         return custom_response(status=False, message=error_params_unfilled(error))
 
-    try:
-        prod = Client.objects.get(id=params['id'])
-    except Client.DoesNotExist:
-        return custom_response(status=False, message=MESSAGE['UserNotFound'])
+    # try:
+    prod = Client.objects.get(name=params[''])
+    # except Client.DoesNotExist:
+    #     return custom_response(status=False, message=MESSAGE['UserNotFound'])
 
     prod.name = params.get('name', prod.name)
     prod.phone = params.get('phone', prod.phone)
     prod.xabar_berish = params.get('xabar_berish', prod.xabar_berish)
     prod.oxirgi_product = params.get('oxirgi_product', prod.oxirgi_product)
     prod.save()
+
+    if not prod:
+        return custom_response(status=False, message={"error"})
+
     return custom_response(True, message={"Succes": "Malumot qayta yuklandi"})
 
 
