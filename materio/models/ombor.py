@@ -46,7 +46,7 @@ class Storage_order(models.Model):
             "size": self.size,
             "date": self.date,
             "location": self.location,
-            "color": self.color,
+            "buyurtma_holati": Ombor_buyurtma.order_status,
             "sent_number": self.sent_number,
             "order_number": self.order_number
         }
@@ -75,6 +75,7 @@ class Ombor_buyurtma(models.Model):
         ("Keldi", "Keldi")
 
     ])
+
     order = models.ForeignKey(Storage_order, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
