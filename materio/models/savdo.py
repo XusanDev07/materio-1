@@ -1,6 +1,6 @@
 from django.db import models
 
-from materio.models import Maxsulot, User
+from materio.models import Maxsulot, User, shop
 from materio.models.clent import Client
 
 
@@ -14,6 +14,8 @@ class savdo_oynasi(models.Model):
         ("YUAN", "YUAN"),
         ("UZS", "UZS")
     ])
+    dokon = models.ForeignKey(shop, on_delete=models.SET_NULL, null=True, blank=True)
+    date = models.DateTimeField(null=True, blank=True)
 
     def savdo_format(self):
         return {
@@ -21,5 +23,4 @@ class savdo_oynasi(models.Model):
             'product': self.product.product_name,
             'sotish_narxi': self.sotish_narxi,
             'valyuta': self.valyuta
-
         }
