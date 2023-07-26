@@ -40,23 +40,20 @@ def add_clent(request, params):
 
 def update_clent(request, params):
     error = next((field for field in [
-                "name", "phone", "xabar_berish", "oxirgi_product"
+                "cl_id", "name", "phone", "xabar_berish", "oxirgi_product"
     ] if field not in params), '')
     if error:
         return custom_response(status=False, message=error_params_unfilled(error))
 
-    # try:
-    prod = Client.objects.get(name=params['name'])
-    # except Client.DoesNotExist:
-    #     return custom_response(status=False, message=MESSAGE['UserNotFound'])
+    try:
+        prod = Client.objects.get(id=params['cl_id'])
+        prod.name = params.get('name', prod.name)
+        prod.phone = params.get('phone', prod.phone)
+        prod.xabar_berish = params.get('xabar_berish', prod.xabar_berish)
+        prod.oxirgi_product = params.get('oxirgi_product', prod.oxirgi_product)
+        prod.save()
 
-    prod.name = params.get('name', prod.name)
-    prod.phone = params.get('phone', prod.phone)
-    prod.xabar_berish = params.get('xabar_berish', prod.xabar_berish)
-    prod.oxirgi_product = params.get('oxirgi_product', prod.oxirgi_product)
-    prod.save()
-
-    if not prod:
+    except Client.DoesNotExist:
         return custom_response(status=False, message={"error"})
 
     return custom_response(True, message={"Succes": "Malumot qayta yuklandi"})
