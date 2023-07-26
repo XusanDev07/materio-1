@@ -8,7 +8,7 @@ class savdo_oynasi(models.Model):
     product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
     clent_bolsa = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
 
-    sotish_narxi = models.CharField(max_length=50)
+    sotish_narxi = models.IntegerField(default=0)
     valyuta = models.CharField(max_length=128, choices=[
         ("USD", "USD"),
         ("YUAN", "YUAN"),

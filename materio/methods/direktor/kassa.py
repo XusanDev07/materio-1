@@ -16,6 +16,6 @@ def kassa(request, params):
 
 def tushumlar(request, params):
     tushumlar_objects = savdo_oynasi.objects.all()
-    tushumlar_sum = tushumlar_objects.all().aggregate(Sum('sotish_narxi'))
+    tushumlar_sum = tushumlar_objects.aggregate(Sum('sotish_narxi'))
 
     return custom_response(status=True, message={"Tushumlar": tushumlar_sum})
