@@ -1,5 +1,4 @@
-from methodism import custom_response, MESSAGE
-from materio.models import Maxsulot, Storage, User, Storage_order
+from materio.models import Maxsulot, Storage_order
 from materio.models.savdo import savdo_oynasi as Savdo
 from materio.models import Client
 from materio.methods.direktor.home_page import magazin_inspection
@@ -27,5 +26,5 @@ def add_savdo(request, params):
     sotish_narx = params['sotish_narxi']
     valyuta = params['valyuta']
 
-    savdo_oynasi.objects.get_or_create(product=product, clent_bolsa=clent, sotish_narxi=sotish_narx, valyuta=valyuta)
+    Savdo.objects.get_or_create(product=product, clent_bolsa=clent, sotish_narxi=sotish_narx, valyuta=valyuta)
     return custom_response(status=True, message={"Qilgan savdoyingiz uchun raxmat"})

@@ -1,5 +1,6 @@
 from django.db import models
-from materio.models import savdo_oynasi, Maxsulot
+from materio.models import Maxsulot
+from materio.models.savdo import savdo_oynasi
 
 
 class shop(models.Model):
