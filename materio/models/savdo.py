@@ -22,5 +22,7 @@ class savdo_oynasi(models.Model):
             'id': self.id,
             'product': self.product.product_name,
             'sotish_narxi': self.sotish_narxi,
-            'valyuta': self.valyuta
+            'valyuta': self.valyuta,
+            "dokon": self.dokon.name,
+            "date": self.date
         }

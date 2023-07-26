@@ -10,7 +10,7 @@ class shop(models.Model):
     savdo = models.ForeignKey(savdo_oynasi, on_delete=models.SET_NULL,  null=True)
     product_number = models.IntegerField()
     color = models.CharField(max_length=128)
-    
+
     def dokon_format(self):
         return {
             'id': self.id,
