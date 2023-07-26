@@ -46,7 +46,7 @@ def update_clent(request, params):
         return custom_response(status=False, message=error_params_unfilled(error))
 
     # try:
-    prod = Client.objects.get(name=params[''])
+    prod = Client.objects.get(name=params['name'])
     # except Client.DoesNotExist:
     #     return custom_response(status=False, message=MESSAGE['UserNotFound'])
 
