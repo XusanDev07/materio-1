@@ -1,3 +1,5 @@
+from methodism import custom_response
+
 from materio.models.base import Maxsulot
 from materio.models import shop, Ombor_buyurtma
 from materio.methods.direktor.home_page import direc_inspection
@@ -37,7 +39,7 @@ def dokon_ombor(request, params):
             "entry_price_type": pk.entry_price_type
         }
     else:
-        pass
+        return custom_response(status=False, message={"error"})
 
 
 def get_ombor_buyurtma(request, params):
