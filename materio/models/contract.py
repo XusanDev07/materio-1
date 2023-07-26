@@ -15,6 +15,7 @@ class Contract_item(models.Model):
     quantity = models.PositiveIntegerField()
     total = models.IntegerField()
     date = models.DateTimeField(auto_now=True)
-    def save(self,*args,**kwargs):
+
+    def save(self, *args, **kwargs):
         self.total = self.product.sale_price * self.quantity
         return super(Contract_item, self).save(*args, **kwargs)
