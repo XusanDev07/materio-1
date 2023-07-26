@@ -26,7 +26,7 @@ def get_ombor_clent_dokon(request, params):
 
     result = {
         "ombor": [x.storage_order_format() for x in Storage_order.objects.all()],
-        "mag": [x.clent_format() for x in Client.objects.all()]
+        "clent": [x.clent_format() for x in Client.objects.all()]
     }
     return {
         "result": result
