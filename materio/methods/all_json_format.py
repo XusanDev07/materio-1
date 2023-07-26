@@ -1,6 +1,7 @@
 from materio.models.base import Maxsulot
-from materio.models import shop
+from materio.models import shop, Ombor_buyurtma
 from materio.methods.direktor.home_page import direc_inspection
+
 
 def maxsulot_format(data: Maxsulot):
     return {
@@ -37,3 +38,13 @@ def dokon_ombor(request, params):
         }
     else:
         pass
+
+
+def get_ombor_buyurtma(request, params):
+    result = direc_inspection(request)
+    if not result['status']:
+        return result
+
+    return {
+        "result": [x.ombor_buyurtma_format() for x in Ombor_buyurtma.objects.all()]
+    }
