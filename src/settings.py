@@ -159,9 +159,9 @@ STATIC_ROOT = BASE_DIR / 'static/root'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# if not DEBUG:
-CORS_ALLOWED_ORIGINS = ["*"]  # os.getenv('CORS_ALLOWED_ORIGINS').split(",")
-CSRF_TRUSTED_ORIGINS = ["*"]  # os.getenv('CSRF_TRUSTED_ORIGINS').split(",")
+if not DEBUG:
+    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(",")
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(",")
 
 
 # Default primary key field type
