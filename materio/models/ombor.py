@@ -79,7 +79,7 @@ class Ombor_buyurtma(models.Model):
     def ombor_buyurtma_format(self):
         return {
             "Buyurtma_raqami": self.id,
-            "ombor_nomi": self.ombor,
+            "ombor_nomi": self.ombor.name,
             "buyurtma_holati": self.order_status
         }
 
