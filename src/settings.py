@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ja$^&z*-9#a$+8lgot864m+#urmr!qwb5*d-(g0)!eg($*6ljc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -159,29 +159,9 @@ STATIC_ROOT = BASE_DIR / 'static/root'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-if not DEBUG:
-    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(",")
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(",")
-
-CORS_ALLOW_METHODS = (
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-)
-
-CORS_ALLOW_HEADERS = (
-    "accept",
-    "authorization",
-    "content-type",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    'HTTP_ACCEPT_LANGUAGE',
-    "HTTP_ACCEPT_METHOD"
-)
+# if not DEBUG:
+CORS_ALLOWED_ORIGINS = ["*"]  # os.getenv('CORS_ALLOWED_ORIGINS').split(",")
+CSRF_TRUSTED_ORIGINS = ["*"]  # os.getenv('CSRF_TRUSTED_ORIGINS').split(",")
 
 
 # Default primary key field type
