@@ -46,7 +46,7 @@ class Storage_order(models.Model):
             "size": self.size,
             "date": self.date,
             "location": self.location,
-            "buyurtma_holati": Ombor_buyurtma.order_status,
+            "color": self.color,
             "sent_number": self.sent_number,
             "order_number": self.order_number
         }
