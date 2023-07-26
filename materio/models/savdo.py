@@ -1,6 +1,6 @@
 from django.db import models
 
-from materio.models import Maxsulot, User, shop
+from materio.models import Maxsulot, shop
 from materio.models.clent import Client
 
 
