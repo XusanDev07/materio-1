@@ -8,7 +8,7 @@ class shop(models.Model):
     location = models.CharField(max_length=128)
     employee_number = models.IntegerField(default=1)
     product = models.ForeignKey(Maxsulot, on_delete=models.SET_NULL, null=True, blank=True)
-    savdo = models.ForeignKey(Savdo, on_delete=models.SET_NULL,  null=True)
+    savdo = models.ForeignKey(Savdo, on_delete=models.SET_NULL, null=True)
     product_number = models.IntegerField()
     color = models.CharField(max_length=128)
 
@@ -26,6 +26,5 @@ class shop(models.Model):
 
         }
 
-    
     def __str__(self):
         return self.name
