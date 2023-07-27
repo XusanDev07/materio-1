@@ -4,7 +4,7 @@ from materio.methods.direktor.home_page import direc_inspection
 from materio.models import chetdan_buyurtma
 
 
-def get_storage_order(request, params):
+def get_chetdan_buyurtma(request, params):
     result = direc_inspection(request)
     if not result['status']:
         return result
