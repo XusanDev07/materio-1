@@ -20,4 +20,10 @@ def tushumlar(request, params):
     tushumlar_objects = savdo_oynasi.objects.all()
     tushumlar_sum = tushumlar_objects.aggregate(Sum('sotish_narxi'))
 
-    return custom_response(status=True, message={"Tushumlar": tushumlar_sum})
+    chiqimlar_objects = chetdan_buyurtma.objects.all()
+    chiqimlar_sum = chiqimlar_objects.aggregate(Sum('narxi'))
+
+    return custom_response(status=True, message={
+        "Tushumlar": tushumlar_sum,
+        "Chiqimlar": chiqimlar_sum
+    })
