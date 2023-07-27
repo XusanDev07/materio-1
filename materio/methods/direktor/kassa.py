@@ -2,6 +2,7 @@ from materio.models import Kassa, savdo_oynasi, chetdan_buyurtma
 from methodism import custom_response
 from django.db.models import Sum
 
+
 def kassa(request, params):
     try:
         tushumlar = int(params['sotish_narxi'])
@@ -13,6 +14,7 @@ def kassa(request, params):
     Kassa.objects.create(tushumlar=tushumlar, chiqimlar=chiqimlar, foyda=foyda)
 
     return custom_response(status=True, message={"Malumot saqlandi"})
+
 
 def tushumlar(request, params):
     tushumlar_objects = savdo_oynasi.objects.all()
