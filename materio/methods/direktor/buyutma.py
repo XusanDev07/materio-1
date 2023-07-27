@@ -1,4 +1,4 @@
-from methodism import custom_response
+from methodism import custom_response, error_params_unfilled
 
 from materio.methods.direktor.home_page import direc_inspection
 from materio.models import chetdan_buyurtma
@@ -23,9 +23,22 @@ def add_chetdan_buyurtma(request, params):
     m = params['maxsulot'],
     ms = params['maxsulot_soni']
     n = params['narxi']
+    all_info = next((field for field in [
+        "shartnome_raqami", "davlat_nomi", "zavod_nomi", "date", "holati", "maxsulot", "maxsulot_soni", "narxi"
+    ] if field not in params), '')
 
-    if not sh or d or z or date or h or m or ms or n:
-        return custom_response(status=False, message={'Error': "malumotlar yetarli emas to'ldir"})
+    if all_info:
+        return custom_response(status=False, message=error_params_unfilled(all_info))
 
-    chetdan_buyurtma.objects.create(sh, d, z, date, h, m, ms, n)
-    return custom_response(status=True, message={"Succes": "Chet elga Buyurtma qilindi !"})
+    chetdan_buyurtma.objects.get_or_create(
+        shartnome_raqami=sh,
+        davlat_nomi=d,
+        zavod_nomi=z,
+        date=date,
+        holati=h,
+        maxsulot=m,
+        maxsulot_soni=ms,
+        narxi=n
+    )
+
+    return custom_response(status=True, message={"Succes": "Chet elga buyurtma qilindi"})
