@@ -8,6 +8,7 @@ from materio.methods.dokon import add_savdo, savdo_ooynasi, get_clent, add_clent
 from materio.methods.direktor.kassa import tushumlar
 from materio.methods.all_json_format import dokon_ombor, get_ombor_buyurtma
 from materio.methods.direktor.home_page import get_ombor_clent_dokon
+from materio.methods.ombor.buyurtmalar import add_storage_order
 
 ununsable_variable = dir()
 
