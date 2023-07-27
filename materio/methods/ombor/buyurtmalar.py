@@ -2,6 +2,19 @@ from methodism import custom_response, error_params_unfilled, MESSAGE
 from materio.models import Ombor_buyurtma, Storage, Storage_order
 from materio.methods.direktor.home_page import direc_inspection
 
+def add_storage_order(request, params):
+
+    n = params['name']
+    s = params['size']
+    d = params['date']
+    c = params['color']
+    l = params['location']
+    o = params['order_number']
+    sent = params['sent_number']
+    if not n or s or d or c or l or o or sent:
+        return custom(status=False, message={"Yaxshilab frontendi o'rgangin keyin ishlidi 👍"})
+    Storage_order.objects.get_or_create(n, s, d, c, l, o, sent)
+    return custom_response(status=True, message={"Success"})
 
 def omborga_buyurtma(request, params):
     result = direc_inspection(request)
