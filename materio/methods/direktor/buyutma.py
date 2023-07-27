@@ -1,7 +1,7 @@
 from methodism import custom_response, error_params_unfilled
 
 from materio.methods.direktor.home_page import direc_inspection
-from materio.models import chetdan_buyurtma
+from materio.models import chetdan_buyurtma, Maxsulot
 
 
 def get_chetdan_buyurtma(request, params):
@@ -30,13 +30,15 @@ def add_chetdan_buyurtma(request, params):
     if all_info:
         return custom_response(status=False, message=error_params_unfilled(all_info))
 
+    mxsl = Maxsulot.objects.filter(id=params['maxsulot']).first()
+
     chetdan_buyurtma.objects.get_or_create(
         shartnome_raqami=sh,
         davlat_nomi=d,
         zavod_nomi=z,
         date=date,
         holati=h,
-        maxsulot=m,
+        maxsulot=mxsl,
         maxsulot_soni=ms,
         narxi=n
     )
