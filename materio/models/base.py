@@ -44,7 +44,7 @@ class chetdan_buyurtma(models.Model):
     shartnome_raqami = models.IntegerField()
     davlat_nomi = models.CharField(max_length=128)
     zavod_nomi = models.CharField(max_length=128)
-    date = models.DateField()
+    date = models.DateField(null=True, blank=True)
     holati = models.CharField(max_length=128, choices=[
         ("tuzildi", "tuzildi"),
         ("yakunlandi", "yakunlandi"),
