@@ -24,6 +24,5 @@ def tushumlar(request, params):
     chiqimlar_sum = chiqimlar_objects.aggregate(Sum('narxi'))
 
     return custom_response(status=True, message={
-        "Tushumlar": tushumlar_sum,
-        "Chiqimlar": chiqimlar_sum
+        "result": tushumlar_sum, chiqimlar_sum
     })
