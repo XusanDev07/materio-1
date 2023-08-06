@@ -48,3 +48,12 @@ def update_xodim(request, params):
     xodim.passport = params.get('passport', xodim.passport)
     xodim.save()
     return custom_response(True, message={"Succes"})
+
+
+
+def delete_xodim(request, params):
+    
+    ombor = Employee.objects.get(id=params['pk'])
+    ombor.delete()
+    return custom_response(status=True, message="Succes")
+    
