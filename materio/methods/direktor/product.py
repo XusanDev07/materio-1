@@ -61,11 +61,12 @@ def update_product(request, params):
         return custom_response(status=False, message=error_params_unfilled(error))
 
     try:
-        prod = Maxsulot.objects.get(product_name=params['product_name'])
+        prod = Maxsulot.objects.get(id=params['product_id'])
     except Maxsulot.DoesNotExist:
         return custom_response(status=False, message=MESSAGE['UserNotFound'])
 
     prod.size = params.get('size', prod.size)
+    prod.product_name = params.get("product_name", prod.product_name)
     prod.color = params.get('color', prod.color)
     prod.joyi = params.get('joyi', prod.joyi)
     prod.soni = params.get('soni', prod.soni)
