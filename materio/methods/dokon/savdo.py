@@ -11,7 +11,7 @@ def savdo_ooynasi(request, params):
         return result
 
     return {
-        "result": [x.storage_order_format() for x in Storage_order.objects.all()]
+        "result": [x.savdo_format() for x in Savdo.objects.all()]
     }
 
 
