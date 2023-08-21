@@ -17,7 +17,7 @@ def savdo_ooynasi(request, params):
 
 def add_savdo(request, params):
     result = magazin_inspection(request)
-    if not result['status']:
+    if not result['status']:x`
         return result
     Client.objects.filter(phone=request.user.phone).first()
 
